@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../models/expense.dart';
+import 'expenses_list/expenses_list.dart';
 
 class Expenses extends StatefulWidget {
   const Expenses({Key? key});
@@ -27,6 +28,13 @@ class _ExpensesState extends State<Expenses> {
     ),
   ];
 
+  void _openAddExpense() {
+    showModalBottomSheet(
+      context: context,
+      builder: (ctx) => const Text('Modal bottom sheet'),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,22 +43,27 @@ class _ExpensesState extends State<Expenses> {
           'Expense Tracker',
           style: GoogleFonts.lato(
             color: Colors.black,
-            fontSize: 20,
+            fontSize: 23,
             fontWeight: FontWeight.bold,
           ),
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () {},
-          )
+            onPressed: _openAddExpense,
+            icon: const Icon(Icons.add),
+          ),
         ],
       ),
       body: Column(
         children: [
           const Text("The Chart"),
           Expanded(
-            child: ExpensesList(expenses: _registeredExpenses),
+            child: ListView.builder(
+              itemCount: _registeredExpenses.length,
+              itemBuilder: (ctx, index) {
+                return ExpenseItem(expense: _registeredExpenses[index]);
+              },
+            ),
           ),
         ],
       ),
