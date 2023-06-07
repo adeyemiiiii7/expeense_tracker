@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:expense_tracker/expenses_item.dart';
 import 'package:expense_tracker/widgets/new_expense.dart';
 import 'package:flutter/material.dart';
@@ -31,12 +33,13 @@ class _ExpensesState extends State<Expenses> {
 
   void _openAddExpense() {
     showModalBottomSheet(
+      isScrollControlled: true,
       context: context,
       builder: (ctx) => NewExpense(onAddExpense: _addExpense),
     );
   }
 
-  void_addExpense(Expense expense) {
+  void _addExpense(Expense expense) {
     setState(() {
       _registeredExpenses.add(expense);
     });
