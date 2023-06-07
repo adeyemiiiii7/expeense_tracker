@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'dart:developer';
 import 'package:intl/intl.dart';
 
 import '../models/expense.dart';
 
 class NewExpense extends StatefulWidget {
-  const NewExpense({super.key});
+  const NewExpense({super.key, required this.onAddExpense});
+  //accepting values in a widget
+  final void Function(Expense expense) onAddExpense;
 
   @override
   State<NewExpense> createState() => _NewExpenseState();
@@ -32,6 +35,59 @@ class _NewExpenseState extends State<NewExpense> {
     //.then((value) {
 
     // },);
+  }
+
+  void _chosenExpenseData() {
+    //condition to input an amount
+    // || is or while && is and
+    final enteredAmount = double.tryParse(_amountController.text);
+    final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
+    if (_titleController.text.trim().isEmpty ||
+        amountIsInvalid ||
+        _selectedDate == null) {
+      //show error message
+      ///using showDialog to show the the message
+      //ctx is shortform of context
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text(
+            "Invalid Input",
+            style: GoogleFonts.lato(
+              color: Colors.black,
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          content: Text(
+            "ENTER ALL FIELDS.....",
+            style: GoogleFonts.lato(
+              color: Colors.black,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          actions: [
+            //call navigator pop to return to previous screen after error message is shown
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: const Text('Okay'),
+            )
+          ],
+        ),
+      );
+      return;
+    }
+    //widgett is used to access functions in a  state
+    widget.onAddExpense(
+      Expense(
+          title: _titleController.text,
+          amount: enteredAmount,
+          date: _selectedDate!,
+          category: _selectedCategory),
+    );
   }
 
   @override
@@ -89,17 +145,26 @@ class _NewExpenseState extends State<NewExpense> {
           const SizedBox(height: 16),
           Row(
             children: [
-              DropdownButton<Category>(
-                items: Category.values.map((category) {
-                  return DropdownMenuItem<Category>(
-                    value: category,
-                    child: Text(category.name.toUpperCase()),
-                  );
-                }).toList(),
-                onChanged: (Category? value) {
-                  // Handle dropdown value change here
-                },
-              ),
+              DropdownButton(
+                  value: _selectedCategory,
+                  items: Category.values.map((category) {
+                    return DropdownMenuItem<Category>(
+                      value: category,
+                      child: Text(category.name.toUpperCase()),
+                    );
+                  }).toList(),
+                  // onChanged: (Category? value) {
+                  //   // Handle dropdown value change here
+                  // },
+                  onChanged: (value) {
+                    if (value == null) {
+                      return;
+                    }
+                    setState(() {
+                      _selectedCategory = value;
+                    });
+                  }),
+              const Spacer(),
             ],
           ),
           Row(
@@ -114,8 +179,9 @@ class _NewExpenseState extends State<NewExpense> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  log(_titleController.text);
-                  log(_amountController.text);
+                  // log(_titleController.text);
+                  // log(_amountController.text);
+                  _chosenExpenseData();
                 },
                 child: const Text('Save Expense'),
               ),
