@@ -3,7 +3,10 @@ import 'package:expense_tracker/models/expense.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ExpenseItem extends StatelessWidget {
-  const ExpenseItem({Key? key, required this.expense});
+  const ExpenseItem(
+      {Key? key,
+      required this.expense,
+      required void Function(Expense expense) onRemoveExpense});
 
   final Expense expense;
 
