@@ -47,10 +47,28 @@ class _ExpensesState extends State<Expenses> {
     setState(() {
       _registeredExpenses.remove(expense);
     });
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text("Expense Deleted")));
   }
 
   @override
   Widget build(BuildContext context) {
+    Widget mainContent = Center(
+      child: Text(
+        'No Expenses, Add some!',
+        style: GoogleFonts.lato(
+          color: Colors.black,
+          fontSize: 23,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+    if (_registeredExpenses.isNotEmpty) {
+      mainContent = ExpensesList(
+        expenses: _registeredExpenses,
+        onRemoveExpense: _removeExpense,
+      );
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -72,10 +90,7 @@ class _ExpensesState extends State<Expenses> {
         children: [
           const Text("The Chart"),
           Expanded(
-            child: ExpensesList(
-              expenses: _registeredExpenses,
-              onRemoveExpense: _removeExpense,
-            ),
+            child: mainContent,
           ),
         ],
       ),
