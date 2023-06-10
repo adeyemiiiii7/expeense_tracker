@@ -85,7 +85,7 @@ class _ExpensesState extends State<Expenses> {
         title: Text(
           'Expense Tracker',
           style: GoogleFonts.poppins(
-            color: Colors.black,
+            color: const Color.fromARGB(255, 232, 232, 232),
             fontSize: 22,
             fontWeight: FontWeight.bold,
           ),

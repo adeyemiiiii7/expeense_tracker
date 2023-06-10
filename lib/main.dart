@@ -3,11 +3,11 @@ import 'package:expense_tracker/widgets/expenses.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 var kColorScheme =
-    ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 158, 158, 165));
+    ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 26, 25, 25));
 
 var kDarkColorScheme = ColorScheme.fromSeed(
   brightness: Brightness.dark,
-  seedColor: const Color.fromARGB(255, 5, 5, 5),
+  seedColor: Color.fromARGB(255, 54, 54, 54),
 );
 
 void main() {
@@ -19,7 +19,10 @@ void main() {
         colorScheme: kDarkColorScheme,
         cardTheme: const CardTheme().copyWith(
           color: kDarkColorScheme.secondaryContainer,
-          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          margin: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 8,
+          ),
         ),
       ),
       debugShowCheckedModeBanner: false,
@@ -27,8 +30,8 @@ void main() {
         useMaterial3: true,
         colorScheme: kDarkColorScheme,
         appBarTheme: const AppBarTheme().copyWith(
-          backgroundColor: kColorScheme.onPrimaryContainer,
-          foregroundColor: kColorScheme.primaryContainer,
+          backgroundColor: kDarkColorScheme.onPrimaryContainer,
+          foregroundColor: kDarkColorScheme.primaryContainer,
         ),
         cardTheme: const CardTheme().copyWith(
           color: kColorScheme.secondaryContainer,
@@ -36,7 +39,8 @@ void main() {
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: kColorScheme.primaryContainer,
+            backgroundColor: kDarkColorScheme.onPrimaryContainer,
+            foregroundColor: kDarkColorScheme.primaryContainer,
           ),
         ),
         textTheme: ThemeData().textTheme.copyWith(
