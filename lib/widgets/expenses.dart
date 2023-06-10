@@ -84,9 +84,9 @@ class _ExpensesState extends State<Expenses> {
       appBar: AppBar(
         title: Text(
           'Expense Tracker',
-          style: GoogleFonts.lato(
+          style: GoogleFonts.poppins(
             color: Colors.black,
-            fontSize: 23,
+            fontSize: 22,
             fontWeight: FontWeight.bold,
           ),
         ),

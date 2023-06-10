@@ -19,26 +19,21 @@ class ExpenseItem extends StatelessWidget {
           vertical: 20,
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              expense.title,
-              style: GoogleFonts.lato(
-                color: Colors.black,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Text(expense.title, style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: 4),
             Row(
               children: [
                 Text(
                   '\$${expense.amount.toStringAsFixed(2)}',
+                  style: Theme.of(context).textTheme.titleLarge,
                   // Optionally, you can apply additional styling to the text
-                  style: GoogleFonts.lato(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  // style: GoogleFonts.lato(
+                  //   color: Colors.black,
+                  //   fontSize: 16,
+                  //   fontWeight: FontWeight.bold,
+                  // ),
                 ),
                 const Spacer(),
                 Row(
