@@ -1,28 +1,33 @@
+// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:expense_tracker/widgets/chart/chart_bar.dart';
-import 'package:expense_tracker/models/expense.dart';
+import 'package:expense_tracker/models/expense.dart' as ExpenseModel;
 
 class Chart extends StatelessWidget {
-  const Chart({super.key, required this.expenses});
+  const Chart({Key? key, required this.expenses}) : super(key: key);
 
-  final List<Expense> expenses;
+  final List<ExpenseModel.Expense> expenses;
 
-  List<ExpenseSummary> get buckets {
+  List<ExpenseModel.ExpenseSummary> get summary {
     return [
-      ExpenseSummary.forCategory(expenses, Category.food),
-      ExpenseSummary.forCategory(expenses, Category.leisure),
-      ExpenseSummary.forCategory(expenses, Category.travel),
-      ExpenseSummary.forCategory(expenses, Category.work),
+      ExpenseModel.ExpenseSummary.forCategory(
+          expenses, ExpenseModel.Category.food),
+      ExpenseModel.ExpenseSummary.forCategory(
+          expenses, ExpenseModel.Category.leisure),
+      ExpenseModel.ExpenseSummary.forCategory(
+          expenses, ExpenseModel.Category.travel),
+      ExpenseModel.ExpenseSummary.forCategory(
+          expenses, ExpenseModel.Category.work),
     ];
   }
 
   double get maxTotalExpense {
     double maxTotalExpense = 0;
 
-    for (final bucket in buckets) {
-      if (bucket.totalExpenses > maxTotalExpense) {
-        maxTotalExpense = bucket.totalExpenses;
+    for (final summary in summary) {
+      if (summary.totalExpenses > maxTotalExpense) {
+        maxTotalExpense = summary.totalExpenses;
       }
     }
 
@@ -58,24 +63,24 @@ class Chart extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                for (final bucket in buckets) // alternative to map()
+                for (final summary in summary) // alternative to map()
                   ChartBar(
-                    fill: bucket.totalExpenses == 0
+                    fill: summary.totalExpenses == 0
                         ? 0
-                        : bucket.totalExpenses / maxTotalExpense,
+                        : summary.totalExpenses / maxTotalExpense,
                   )
               ],
             ),
           ),
           const SizedBox(height: 12),
           Row(
-            children: buckets
+            children: summary
                 .map(
-                  (bucket) => Expanded(
+                  (summary) => Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 4),
                       child: Icon(
-                        categoryIcons[bucket.category],
+                        ExpenseModel.categoryIcons[summary.category],
                         color: isDarkMode
                             ? Theme.of(context).colorScheme.secondary
                             : Theme.of(context)
