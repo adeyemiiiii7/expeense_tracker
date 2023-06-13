@@ -3,12 +3,12 @@ import 'package:expense_tracker/widgets/expenses.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 var kColorScheme = ColorScheme.fromSeed(
-  seedColor: const Color.fromARGB(255, 21, 21, 21),
+  seedColor: Color.fromARGB(255, 33, 32, 32),
 );
 
 var kDarkColorScheme = ColorScheme.fromSeed(
   brightness: Brightness.dark,
-  seedColor: const Color.fromARGB(255, 54, 54, 54),
+  seedColor: Color.fromARGB(255, 37, 35, 35),
 );
 
 void main() {
