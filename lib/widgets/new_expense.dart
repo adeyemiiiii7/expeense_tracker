@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -49,9 +50,9 @@ class _NewExpenseState extends State<NewExpense> {
       //show error message
       ///using showDialog to show the the message
       //ctx is shortform of context
-      showDialog(
+      showCupertinoDialog(
         context: context,
-        builder: (ctx) => AlertDialog(
+        builder: (ctx) => CupertinoAlertDialog(
           title: Text(
             "Invalid Input",
             style: GoogleFonts.lato(
@@ -100,6 +101,8 @@ class _NewExpenseState extends State<NewExpense> {
 
   @override
   Widget build(BuildContext context) {
+    CenterTitle:
+    false;
     final keyboardSpace = MediaQuery.of(context).viewInsets.bottom;
     return LayoutBuilder(builder: (ctx, constraints) {
       // log(constraints.minWidth.toString());
