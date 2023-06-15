@@ -99,14 +99,18 @@ class _NewExpenseState extends State<NewExpense> {
 
   @override
   Widget build(BuildContext context) {
-    final KeyboardSpacee = MediaQuery.of(context).viewInsets.bottom;
+    final keyboardSpace = MediaQuery.of(context).viewInsets.bottom;
+    final width = MediaQuery.of(context).size.width;
     return SizedBox(
         height: double.infinity,
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.fromLTRB(16, 48, 16, KeyboardSpacee + 16),
+            padding: EdgeInsets.fromLTRB(16, 48, 16, keyboardSpace + 16),
             child: Column(
               children: [
+                if (width >= 600)
+                Row(
+                  else
                 TextField(
                   controller: _titleController,
                   maxLength: 50,
@@ -192,8 +196,10 @@ class _NewExpenseState extends State<NewExpense> {
                   ],
                 ),
               ],
+            )
             ),
           ),
-        ));
+        )
+        ;
   }
 }
