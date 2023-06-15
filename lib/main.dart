@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:expense_tracker/widgets/expenses.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 var kColorScheme = ColorScheme.fromSeed(
-  seedColor: const Color.fromARGB(255, 33, 32, 32),
+  seedColor: const Color.fromARGB(255, 82, 79, 79),
 );
 
 var kDarkColorScheme = ColorScheme.fromSeed(
   brightness: Brightness.dark,
-  seedColor: const Color.fromARGB(255, 37, 35, 35),
+  seedColor: const Color.fromARGB(255, 97, 97, 97),
 );
 
 void main() {
+  // SystemChrome.setPreferredOrientations([
+  //   DeviceOrientation.portraitUp,
+  // ]).then((_) {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MaterialApp(
@@ -35,7 +39,7 @@ void main() {
       debugShowCheckedModeBanner: false,
       theme: ThemeData().copyWith(
         useMaterial3: true,
-        colorScheme: kDarkColorScheme,
+        colorScheme: kColorScheme,
         appBarTheme: const AppBarTheme().copyWith(
           backgroundColor: kColorScheme.onPrimaryContainer,
           foregroundColor: kColorScheme.primaryContainer,
@@ -65,5 +69,6 @@ void main() {
       home: const Expenses(),
     ),
   );
+  // });
 }
 //check theme
