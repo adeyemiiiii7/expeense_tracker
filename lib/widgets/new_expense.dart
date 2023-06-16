@@ -1,10 +1,11 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:developer';
 import 'package:intl/intl.dart';
-
+import 'package:flutter/cupertino.dart';
 import '../models/expense.dart';
 
 class NewExpense extends StatefulWidget {
@@ -39,35 +40,51 @@ class _NewExpenseState extends State<NewExpense> {
     // },);
   }
 
-  void _chosenExpenseData() {
-    //condition to input an amount
-    // || is or while && is and
-    final enteredAmount = double.tryParse(_amountController.text);
-    final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
-    if (_titleController.text.trim().isEmpty ||
-        amountIsInvalid ||
-        _selectedDate == null) {
-      //show error message
-      ///using showDialog to show the the message
-      //ctx is shortform of context
+  void _showDialog() {
+    if (Platform.isIOS) {
       showCupertinoDialog(
+          context: context,
+          builder: (ctx) => CupertinoAlertDialog(
+                title: Text(
+                  "Invalid Input",
+                  style: GoogleFonts.lato(
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                content: Text(
+                  "ENTER ALL FIELDS.....",
+                  style: GoogleFonts.lato(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                actions: [
+                  //call navigator pop to return to previous screen after error message is shown
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(ctx);
+                    },
+                    child: const Text('Okay'),
+                  )
+                ],
+              ));
+    } else {
+      showDialog(
         context: context,
-        builder: (ctx) => CupertinoAlertDialog(
+        builder: (ctx) => AlertDialog(
           title: Text(
             "Invalid Input",
-            style: GoogleFonts.lato(
+            style: GoogleFonts.poppins(
               color: Colors.black,
               fontSize: 15,
               fontWeight: FontWeight.bold,
             ),
           ),
-          content: Text(
+          content: const Text(
             "ENTER ALL FIELDS.....",
-            style: GoogleFonts.lato(
-              color: Colors.black,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
           ),
           actions: [
             //call navigator pop to return to previous screen after error message is shown
@@ -80,6 +97,21 @@ class _NewExpenseState extends State<NewExpense> {
           ],
         ),
       );
+    }
+  }
+
+  void _chosenExpenseData() {
+    //condition to input an amount
+    // || is or while && is and
+    final enteredAmount = double.tryParse(_amountController.text);
+    final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
+    if (_titleController.text.trim().isEmpty ||
+        amountIsInvalid ||
+        _selectedDate == null) {
+      //show error message
+      ///using showDialog to show the the message
+      //ctx is shortform of context
+      _showDialog();
       return;
     }
     //widgett is used to access functions in a  state
@@ -101,8 +133,7 @@ class _NewExpenseState extends State<NewExpense> {
 
   @override
   Widget build(BuildContext context) {
-    CenterTitle:
-    false;
+    // CenterTitle : false;
     final keyboardSpace = MediaQuery.of(context).viewInsets.bottom;
     return LayoutBuilder(builder: (ctx, constraints) {
       // log(constraints.minWidth.toString());
