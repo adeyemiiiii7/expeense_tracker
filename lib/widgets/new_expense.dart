@@ -1,10 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:developer';
-import 'package:intl/intl.dart';
+// import 'dart:developer';
+// import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import '../models/expense.dart';
 
@@ -133,7 +132,6 @@ class _NewExpenseState extends State<NewExpense> {
 
   @override
   Widget build(BuildContext context) {
-    // CenterTitle : false;
     final keyboardSpace = MediaQuery.of(context).viewInsets.bottom;
     return LayoutBuilder(builder: (ctx, constraints) {
       // log(constraints.minWidth.toString());

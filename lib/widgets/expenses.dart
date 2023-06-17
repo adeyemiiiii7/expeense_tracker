@@ -66,6 +66,9 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_label
+    CenterTitle:
+    false;
     final width = MediaQuery.of(context).size.width;
     Widget mainContent = Center(
       child: Text(
